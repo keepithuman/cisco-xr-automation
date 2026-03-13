@@ -1,0 +1,12 @@
+{
+  "interfaces": [
+    {% for intf in interfaces %}
+    {
+      "name": "{{ intf.name }}",
+      "ip_address": "{{ intf.ip_address | default('unassigned') }}",
+      "status": "{{ intf.status }}",
+      "protocol": "{{ intf.protocol }}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
