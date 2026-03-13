@@ -35,7 +35,8 @@ services:
     working-directory: show_version
     repository: cisco-xr-automation
     decorator: cisco-xr-show-version-decorator
-    requirements-file: requirements.txt
+    runtime:
+      req-file: requirements.txt
     secrets:
       - name: cisco-device-username
         type: env
@@ -50,7 +51,8 @@ services:
     working-directory: show_interfaces
     repository: cisco-xr-automation
     decorator: cisco-xr-show-interfaces-decorator
-    requirements-file: requirements.txt
+    runtime:
+      req-file: requirements.txt
     secrets:
       - name: cisco-device-username
         type: env
