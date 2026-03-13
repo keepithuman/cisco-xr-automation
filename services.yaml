@@ -1,0 +1,58 @@
+repositories:
+  - name: cisco-xr-automation
+    url: https://github.com/keepithuman/cisco-xr-automation.git
+    reference: main
+
+decorators:
+  - name: cisco-xr-show-version-decorator
+    schema:
+      $id: root
+      $schema: https://json-schema.org/draft/2020-12/schema
+      type: object
+      required:
+        - device_ip
+      properties:
+        device_ip:
+          type: string
+          description: Target IOS-XR device IP address
+
+  - name: cisco-xr-show-interfaces-decorator
+    schema:
+      $id: root
+      $schema: https://json-schema.org/draft/2020-12/schema
+      type: object
+      required:
+        - device_ip
+      properties:
+        device_ip:
+          type: string
+          description: Target IOS-XR device IP address
+
+services:
+  - name: cisco-xr-show-version
+    type: python-script
+    filename: main.py
+    working-directory: show_version
+    repository: cisco-xr-automation
+    decorator: cisco-xr-show-version-decorator
+    secrets:
+      - name: cisco-device-username
+        type: env
+        target: DEVICE_USERNAME
+      - name: cisco-device-password
+        type: env
+        target: DEVICE_PASSWORD
+
+  - name: cisco-xr-show-interfaces
+    type: python-script
+    filename: main.py
+    working-directory: show_interfaces
+    repository: cisco-xr-automation
+    decorator: cisco-xr-show-interfaces-decorator
+    secrets:
+      - name: cisco-device-username
+        type: env
+        target: DEVICE_USERNAME
+      - name: cisco-device-password
+        type: env
+        target: DEVICE_PASSWORD
