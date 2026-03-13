@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Fetch 'show version' from a Cisco IOS-XR device and output structured JSON via J2."""
 
+import argparse
 import json
 import os
 import re
@@ -41,7 +42,11 @@ def parse_show_version(raw_output):
 
 
 def main():
-    device_ip = os.environ.get("DEVICE_IP") or (sys.argv[1] if len(sys.argv) > 1 else None)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--device_ip", required=False)
+    args, _ = parser.parse_known_args()
+
+    device_ip = args.device_ip or os.environ.get("DEVICE_IP")
     username = os.environ.get("DEVICE_USERNAME")
     password = os.environ.get("DEVICE_PASSWORD")
 
